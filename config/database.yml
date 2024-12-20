@@ -40,9 +40,7 @@ test:
 #     database: storage/production_cable.sqlite3
 #     migrations_paths: db/cable_migrate
 
+
 production:
   <<: *default
-  adapter: postgresql
-  database: mysite
   url: <%= ENV['DATABASE_URL'] %>
-

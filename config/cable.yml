@@ -17,5 +17,7 @@ test:
 #   message_retention: 1.day
 
 production:
-  adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: primary
