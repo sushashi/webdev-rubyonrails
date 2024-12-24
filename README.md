@@ -2,6 +2,8 @@
 
 This repository is used for the [Server-side Web Development with Ruby on Rails](https://github.com/mluukkai/WebPalvelinohjelmointi2023/tree/main?tab=readme-ov-file) course offered by the University of Helsinki.
 
+It contains a single application, "Ratebeer", built step by step following the course material.
+
 ## Week 1
 The application is deployed on render.com with this [guide](https://render.com/docs/deploy-rails#use-renderyaml-to-deploy).
 
@@ -14,3 +16,7 @@ The application deployed on render starts in the production environment and uses
 May take a while to launch, It's on a free plan.
 - https://mysite-9qj1.onrender.com/breweries
 - https://mysite-9qj1.onrender.com/beers
+
+## Week 2
+
+- https://mysite-9qj1.onrender.com/
