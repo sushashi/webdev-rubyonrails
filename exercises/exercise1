@@ -1,0 +1,259 @@
+ratebeer(dev)> Brewery.create name:'BrewDog', year:2007
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Brewery Create (1.1ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES ('BrewDog', 2007, '2024-12-20 13:17:33.090044', '2024-12-20 13:17:33.090044') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Brewery:0x00007f262514c588 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdog = Brewery.last
+  Brewery Load (0.7ms)  SELECT "breweries".* FROM "breweries" ORDER BY "breweries"."id" DESC LIMIT 1 /*application='Ratebeer'*/
+=> #<Brewery:0x00007f262514e388 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdo
+(ratebeer):32:in `<main>': undefined local variable or method `brewdo' for main (NameError)
+
+brewdo
+^^^^^^
+Did you mean?  brewdog
+               redo
+ratebeer(dev)> brewdog
+=> #<Brewery:0x00007f262514e388 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdog.beers.create name:"Punk IPA", style:"IPA"
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.1ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Punk IPA', 'IPA', 4, '2024-12-20 13:18:40.804567', '2024-12-20 13:18:40.804567') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Beer:0x00007f2625153ea0 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> brewdog.beers.create name:"Nanny State", style:"low alcohol"
+  TRANSACTION (0.8ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.5ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Nanny State', 'low alcohol', 4, '2024-12-20 13:19:06.826510', '2024-12-20 13:19:06.826510') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007f26251534a0
+ id: 10,
+ name: "Nanny State",
+ style: "low alcohol",
+ brewery_id: 4,
+ created_at: "2024-12-20 13:19:06.826510000 +0000",
+ updated_at: "2024-12-20 13:19:06.826510000 +0000">
+ratebeer(dev)> Beer
+=> Beer(id: integer, name: string, style: string, brewery_id: integer, created_at: datetime, updated_at: datetime)
+ratebeer(dev)> Beer.all
+  Beer Load (0.7ms)  SELECT "beers".* FROM "beers" /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Beer:0x00007f2625135dd8 id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.601252000 +0000", updated_at: "2024-12-20 08:45:07.601252000 +0000">,
+ #<Beer:0x00007f2625135c98 id: 2, name: "Karhu", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.606252000 +0000", updated_at: "2024-12-20 08:45:07.606252000 +0000">,
+ #<Beer:0x00007f2625135b58 id: 3, name: "Tuplahumala", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.611130000 +0000", updated_at: "2024-12-20 08:45:07.611130000 +0000">,
+ #<Beer:0x00007f2625135a18
+  id: 4,
+  name: "Huvila Pale Ale",
+  style: "Pale Ale",
+  brewery_id: 2,
+  created_at: "2024-12-20 08:45:07.615971000 +0000",
+  updated_at: "2024-12-20 08:45:07.615971000 +0000">,
+ #<Beer:0x00007f2625135658 id: 5, name: "X Porter", style: "Porter", brewery_id: 2, created_at: "2024-12-20 08:45:07.620701000 +0000", updated_at: "2024-12-20 08:45:07.620701000 +0000">,     
+ #<Beer:0x00007f2625135518 id: 6, name: "Hefeweizen", style: "Weizen", brewery_id: 3, created_at: "2024-12-20 08:45:07.633563000 +0000", updated_at: "2024-12-20 08:45:07.633563000 +0000">,   
+ #<Beer:0x00007f26251353d8 id: 7, name: "Helles", style: "Lager", brewery_id: 3, created_at: "2024-12-20 08:45:07.638408000 +0000", updated_at: "2024-12-20 08:45:07.638408000 +0000">,        
+ #<Beer:0x00007f2625135298 id: 8, name: "anonymous", style: "waterly", brewery_id: 1, created_at: "2024-12-20 13:15:32.019386000 +0000", updated_at: "2024-12-20 13:15:32.019386000 +0000">,   
+ #<Beer:0x00007f2625135158 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">,        
+ #<Beer:0x00007f2625135018
+  id: 10,
+  name: "Nanny State",
+  style: "low alcohol",
+  brewery_id: 4,
+  created_at: "2024-12-20 13:19:06.826510000 +0000",
+  updated_at: "2024-12-20 13:19:06.826510000 +0000">]
+ratebeer(dev)> punk = Beer.find_by name:"Punk IPA"
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Punk IPA' LIMIT 1 /*application='Ratebeer'*/
+=> #<Beer:0x00007f2625149248 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> punk.ratings.create score:20
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.0ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (20, 9, '2024-12-20 13:20:01.449204', '2024-12-20 13:20:01.449204') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f26251435c8 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">
+ratebeer(dev)> punk.ratings.create score:15
+  TRANSACTION (1.1ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.7ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (15, 9, '2024-12-20 13:20:05.201729', '2024-12-20 13:20:05.201729') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f262514d988 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">
+ratebeer(dev)> punk
+=> #<Beer:0x00007f2625149248 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> punk.ratings.all
+  Rating Load (0.8ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = 9 /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Rating:0x00007f2625133d58 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">,
+ #<Rating:0x00007f2625133c18 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">]
+ratebeer(dev)> nanny = Beer.find_by name:'Nanny State'
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Nanny State' LIMIT 1 /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007f26251330d8
+...
+ratebeer(dev)> nanny
+=> 
+#<Beer:0x00007f26251330d8
+ id: 10,
+ name: "Nanny State",
+ style: "low alcohol",
+ brewery_id: 4,
+ created_at: "2024-12-20 13:19:06.826510000 +0000",
+ updated_at: "2024-12-20 13:19:06.826510000 +0000">
+ratebeer(dev)> nanny.ratings.al
+(ratebeer):45:in `<main>': undefined method `al' for an instance of ActiveRecord::Associations::CollectionProxy (NoMethodError)
+Did you mean?  all
+ratebeer(dev)> nanny.ratings.all
+  Rating Load (0.4ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = 10 /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> []
+ratebeer(dev)> nanny.ratings.create score:10
+  TRANSACTION (0.4ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.1ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (10, 10, '2024-12-20 13:21:59.428085', '2024-12-20 13:21:59.428085') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f2625137e58 id: 7, score: 10, beer_id: 10, created_at: "2024-12-20 13:21:59.428085000 +0000", updated_at: "2024-12-20 13:21:59.428085000 +0000">
+ratebeer(dev)> nanny.ratings.create score:9
+  TRANSACTION (1.0ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.6ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (9, 10, '2024-12-20 13:22:02.002831', '2024-12-20 13:22:02.002831') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.6ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f26251589a0 id: 8, score: 9, beer_id: 10, created_at: "2024-12-20 13:22:02.002831000 +0000", updated_at: "2024-12-20 13:22:02.002831000 +0000">
+ratebeer(dev)>
+ratebeer(dev)> nanny.ratings.create score:7
+  TRANSACTION (0.7ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (7, 10, '2024-12-20 13:22:04.781817', '2024-12-20 13:22:04.781817') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f2625138718 id: 9, score: 7, beer_id: 10, created_at: "2024-12-20 13:22:04.781817000 +0000", updated_at: "2024-12-20 13:22:04.781817000 +0000">
+ratebeer(dev)> Rating.all
+  Rating Load (0.7ms)  SELECT "ratings".* FROM "ratings" /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Rating:0x00007f2625134618 id: 1, score: 10, beer_id: 1, created_at: "2024-12-20 13:11:40.943699000 +0000", updated_at: "2024-12-20 13:11:40.943699000 +0000">,
+ #<Rating:0x00007f2625134398 id: 2, score: 21, beer_id: 1, created_at: "2024-12-20 13:11:48.719955000 +0000", updated_at: "2024-12-20 13:11:48.719955000 +0000">,
+ #<Rating:0x00007f2625134258 id: 3, score: 17, beer_id: 1, created_at: "2024-12-20 13:11:55.762859000 +0000", updated_at: "2024-12-20 13:11:55.762859000 +0000">,
+ #<Rating:0x00007f2625133fd8 id: 4, score: 15, beer_id: 1, created_at: "2024-12-20 13:12:27.677910000 +0000", updated_at: "2024-12-20 13:12:27.677910000 +0000">,
+ #<Rating:0x00007f2625133e98 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">,
+ #<Rating:0x00007f2625133d58 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">,
+ #<Rating:0x00007f2625133c18 id: 7, score: 10, beer_id: 10, created_at: "2024-12-20 13:21:59.428085000 +0000", updated_at: "2024-12-20 13:21:59.428085000 +0000">,
+ #<Rating:0x00007f2625133ad8 id: 8, score: 9, beer_id: 10, created_at: "2024-12-20 13:22:02.002831000 +0000", updated_at: "2024-12-20 13:22:02.002831000 +0000">,
+ #<Rating:0x00007f2625133998 id: 9, score: 7, beer_id: 10, created_at: "2024-12-20 13:22:04.781817000 +0000", updated_at: "2024-12-20 13:22:04.781817000 +0000">]
+ratebeer(dev)>ratebeer(dev)> Brewery.create name:'BrewDog', year:2007
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Brewery Create (1.1ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES ('BrewDog', 2007, '2024-12-20 13:17:33.090044', '2024-12-20 13:17:33.090044') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Brewery:0x00007f262514c588 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdog = Brewery.last
+  Brewery Load (0.7ms)  SELECT "breweries".* FROM "breweries" ORDER BY "breweries"."id" DESC LIMIT 1 /*application='Ratebeer'*/
+=> #<Brewery:0x00007f262514e388 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdo
+(ratebeer):32:in `<main>': undefined local variable or method `brewdo' for main (NameError)
+
+brewdo
+^^^^^^
+Did you mean?  brewdog
+               redo
+ratebeer(dev)> brewdog
+=> #<Brewery:0x00007f262514e388 id: 4, name: "BrewDog", year: 2007, created_at: "2024-12-20 13:17:33.090044000 +0000", updated_at: "2024-12-20 13:17:33.090044000 +0000">
+ratebeer(dev)> brewdog.beers.create name:"Punk IPA", style:"IPA"
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.1ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Punk IPA', 'IPA', 4, '2024-12-20 13:18:40.804567', '2024-12-20 13:18:40.804567') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Beer:0x00007f2625153ea0 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> brewdog.beers.create name:"Nanny State", style:"low alcohol"
+  TRANSACTION (0.8ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.5ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Nanny State', 'low alcohol', 4, '2024-12-20 13:19:06.826510', '2024-12-20 13:19:06.826510') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007f26251534a0
+ id: 10,
+ name: "Nanny State",
+ style: "low alcohol",
+ brewery_id: 4,
+ created_at: "2024-12-20 13:19:06.826510000 +0000",
+ updated_at: "2024-12-20 13:19:06.826510000 +0000">
+ratebeer(dev)> Beer
+=> Beer(id: integer, name: string, style: string, brewery_id: integer, created_at: datetime, updated_at: datetime)
+ratebeer(dev)> Beer.all
+  Beer Load (0.7ms)  SELECT "beers".* FROM "beers" /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Beer:0x00007f2625135dd8 id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.601252000 +0000", updated_at: "2024-12-20 08:45:07.601252000 +0000">,
+ #<Beer:0x00007f2625135c98 id: 2, name: "Karhu", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.606252000 +0000", updated_at: "2024-12-20 08:45:07.606252000 +0000">,
+ #<Beer:0x00007f2625135b58 id: 3, name: "Tuplahumala", style: "Lager", brewery_id: 1, created_at: "2024-12-20 08:45:07.611130000 +0000", updated_at: "2024-12-20 08:45:07.611130000 +0000">,
+ #<Beer:0x00007f2625135a18
+  id: 4,
+  name: "Huvila Pale Ale",
+  style: "Pale Ale",
+  brewery_id: 2,
+  created_at: "2024-12-20 08:45:07.615971000 +0000",
+  updated_at: "2024-12-20 08:45:07.615971000 +0000">,
+ #<Beer:0x00007f2625135658 id: 5, name: "X Porter", style: "Porter", brewery_id: 2, created_at: "2024-12-20 08:45:07.620701000 +0000", updated_at: "2024-12-20 08:45:07.620701000 +0000">,     
+ #<Beer:0x00007f2625135518 id: 6, name: "Hefeweizen", style: "Weizen", brewery_id: 3, created_at: "2024-12-20 08:45:07.633563000 +0000", updated_at: "2024-12-20 08:45:07.633563000 +0000">,   
+ #<Beer:0x00007f26251353d8 id: 7, name: "Helles", style: "Lager", brewery_id: 3, created_at: "2024-12-20 08:45:07.638408000 +0000", updated_at: "2024-12-20 08:45:07.638408000 +0000">,        
+ #<Beer:0x00007f2625135298 id: 8, name: "anonymous", style: "waterly", brewery_id: 1, created_at: "2024-12-20 13:15:32.019386000 +0000", updated_at: "2024-12-20 13:15:32.019386000 +0000">,   
+ #<Beer:0x00007f2625135158 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">,        
+ #<Beer:0x00007f2625135018
+  id: 10,
+  name: "Nanny State",
+  style: "low alcohol",
+  brewery_id: 4,
+  created_at: "2024-12-20 13:19:06.826510000 +0000",
+  updated_at: "2024-12-20 13:19:06.826510000 +0000">]
+ratebeer(dev)> punk = Beer.find_by name:"Punk IPA"
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Punk IPA' LIMIT 1 /*application='Ratebeer'*/
+=> #<Beer:0x00007f2625149248 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> punk.ratings.create score:20
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.0ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (20, 9, '2024-12-20 13:20:01.449204', '2024-12-20 13:20:01.449204') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f26251435c8 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">
+ratebeer(dev)> punk.ratings.create score:15
+  TRANSACTION (1.1ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.7ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (15, 9, '2024-12-20 13:20:05.201729', '2024-12-20 13:20:05.201729') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f262514d988 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">
+ratebeer(dev)> punk
+=> #<Beer:0x00007f2625149248 id: 9, name: "Punk IPA", style: "IPA", brewery_id: 4, created_at: "2024-12-20 13:18:40.804567000 +0000", updated_at: "2024-12-20 13:18:40.804567000 +0000">
+ratebeer(dev)> punk.ratings.all
+  Rating Load (0.8ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = 9 /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Rating:0x00007f2625133d58 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">,
+ #<Rating:0x00007f2625133c18 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">]
+ratebeer(dev)> nanny = Beer.find_by name:'Nanny State'
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Nanny State' LIMIT 1 /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007f26251330d8
+...
+ratebeer(dev)> nanny
+=> 
+#<Beer:0x00007f26251330d8
+ id: 10,
+ name: "Nanny State",
+ style: "low alcohol",
+ brewery_id: 4,
+ created_at: "2024-12-20 13:19:06.826510000 +0000",
+ updated_at: "2024-12-20 13:19:06.826510000 +0000">
+ratebeer(dev)> nanny.ratings.al
+(ratebeer):45:in `<main>': undefined method `al' for an instance of ActiveRecord::Associations::CollectionProxy (NoMethodError)
+Did you mean?  all
+ratebeer(dev)> nanny.ratings.all
+  Rating Load (0.4ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = 10 /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> []
+ratebeer(dev)> nanny.ratings.create score:10
+  TRANSACTION (0.4ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.1ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (10, 10, '2024-12-20 13:21:59.428085', '2024-12-20 13:21:59.428085') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f2625137e58 id: 7, score: 10, beer_id: 10, created_at: "2024-12-20 13:21:59.428085000 +0000", updated_at: "2024-12-20 13:21:59.428085000 +0000">
+ratebeer(dev)> nanny.ratings.create score:9
+  TRANSACTION (1.0ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.6ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (9, 10, '2024-12-20 13:22:02.002831', '2024-12-20 13:22:02.002831') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.6ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f26251589a0 id: 8, score: 9, beer_id: 10, created_at: "2024-12-20 13:22:02.002831000 +0000", updated_at: "2024-12-20 13:22:02.002831000 +0000">
+ratebeer(dev)>
+ratebeer(dev)> nanny.ratings.create score:7
+  TRANSACTION (0.7ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (7, 10, '2024-12-20 13:22:04.781817', '2024-12-20 13:22:04.781817') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> #<Rating:0x00007f2625138718 id: 9, score: 7, beer_id: 10, created_at: "2024-12-20 13:22:04.781817000 +0000", updated_at: "2024-12-20 13:22:04.781817000 +0000">
+ratebeer(dev)> Rating.all
+  Rating Load (0.7ms)  SELECT "ratings".* FROM "ratings" /* loading for pp */ LIMIT 11 /*application='Ratebeer'*/
+=> 
+[#<Rating:0x00007f2625134618 id: 1, score: 10, beer_id: 1, created_at: "2024-12-20 13:11:40.943699000 +0000", updated_at: "2024-12-20 13:11:40.943699000 +0000">,
+ #<Rating:0x00007f2625134398 id: 2, score: 21, beer_id: 1, created_at: "2024-12-20 13:11:48.719955000 +0000", updated_at: "2024-12-20 13:11:48.719955000 +0000">,
+ #<Rating:0x00007f2625134258 id: 3, score: 17, beer_id: 1, created_at: "2024-12-20 13:11:55.762859000 +0000", updated_at: "2024-12-20 13:11:55.762859000 +0000">,
+ #<Rating:0x00007f2625133fd8 id: 4, score: 15, beer_id: 1, created_at: "2024-12-20 13:12:27.677910000 +0000", updated_at: "2024-12-20 13:12:27.677910000 +0000">,
+ #<Rating:0x00007f2625133e98 id: 5, score: 20, beer_id: 9, created_at: "2024-12-20 13:20:01.449204000 +0000", updated_at: "2024-12-20 13:20:01.449204000 +0000">,
+ #<Rating:0x00007f2625133d58 id: 6, score: 15, beer_id: 9, created_at: "2024-12-20 13:20:05.201729000 +0000", updated_at: "2024-12-20 13:20:05.201729000 +0000">,
+ #<Rating:0x00007f2625133c18 id: 7, score: 10, beer_id: 10, created_at: "2024-12-20 13:21:59.428085000 +0000", updated_at: "2024-12-20 13:21:59.428085000 +0000">,
+ #<Rating:0x00007f2625133ad8 id: 8, score: 9, beer_id: 10, created_at: "2024-12-20 13:22:02.002831000 +0000", updated_at: "2024-12-20 13:22:02.002831000 +0000">,
+ #<Rating:0x00007f2625133998 id: 9, score: 7, beer_id: 10, created_at: "2024-12-20 13:22:04.781817000 +0000", updated_at: "2024-12-20 13:22:04.781817000 +0000">]
+ratebeer(dev)>

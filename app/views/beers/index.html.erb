@@ -2,12 +2,26 @@
 
 <% content_for :title, "Beers" %>
 
+<p>
+  <%= link_to "New beer", beers_new_path %>
+</p>
+
 <h1>Beers</h1>
 
 <div id="beers">
   <% @beers.each do |beer| %>
-    <%= render beer %>
+    <p>
+      <strong>Name:</strong>
+      <%= link_to beer.name, beer_path(beer.id) %>
+    </p>
+
+    <p>
+      <strong>Style:</strong>
+      <%= beer.style %>
+    </p>
+    <p>
+      <strong>Brewery:</strong>
+      <%= link_to beer.brewery.name, brewery_path(beer.brewery.id) %>
+    </p>
   <% end %>
 </div>
-
-<%= link_to "New beer", new_beer_path %>

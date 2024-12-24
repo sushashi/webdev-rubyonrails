@@ -2,7 +2,14 @@
 
 <h1>New beer</h1>
 
-<%= render "form", beer: @beer %>
+
+<%= form_for(@beer) do |b| %>
+  name: <%= b.text_field :name %> <br>
+  style: <%= b.select :style, options_for_select(@styles) %> <br>
+  brewery: <%= b.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
+  <br>
+  <%= b.submit %>
+<% end %>
 
 <br>
 

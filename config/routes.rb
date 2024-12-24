@@ -13,4 +13,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root 'breweries#index'
+
+  get 'all_beers', to: 'beers#index'
+  get 'beers/new', to: 'beers#new'
+
+  # get 'ratings', to: 'ratings#index'
+  # get 'ratings/new', to: 'ratings#new'
+  # post 'ratings', to: 'ratings#create'
+
+  resources :ratings, only: [:index, :new, :create, :destroy]
 end
