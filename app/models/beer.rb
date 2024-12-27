@@ -9,6 +9,10 @@ class Beer < ApplicationRecord
     #     self.ratings.map {|i| i.score}.reduce(0,:+) / self.ratings.count.to_f
     # end
 
+    def thing
+        binding.pry
+    end
+
     def to_s
         "#{self.brewery.name}: #{self.name}"
     end
