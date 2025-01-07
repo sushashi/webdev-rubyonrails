@@ -22,3 +22,5 @@ May take a while to launch, It's on a free plan.
 - https://mysite-9qj1.onrender.com/
 
 ## Week 3
+- I reinitialized the web service and the database on render with, there was a problem with the database migration.
+- Comment/Uncomment database seed [file](/db/seeds.rb) if needed.
