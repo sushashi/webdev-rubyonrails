@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Beerclubs" %>
+
+<%= link_to "New beerclub", new_beerclub_path %>
+
+<h1>Beerclubs</h1>
+
+<div id="beerclubs">
+  <% @beerclubs.each do |beerclub| %>
+    <h4>
+      <strong>Name:</strong>
+      <%= link_to beerclub.name, beerclub_path(beerclub.id) %>
+    </h4>
+      <ul>
+        <li>
+          <strong>Founded:</strong>
+          <%= beerclub.founded %>
+        </li>
+
+        <li>
+          <strong>City:</strong>
+          <%= beerclub.city %>
+        </li>
+      </ul>
+  <% end %>
+</div>
+

@@ -3,12 +3,15 @@
 </p>
 
 
-<h2>List of ratings</h2>
+<h1>List of ratings</h1>
 
 <div id="ratings">
   <ul>
     <% @ratings.each do |rating| %>
-      <li><%= render rating %> <%= button_to 'delete', rating, method: :delete, data: { 'turbo-confirm': 'Are you sure?' }  %> </li>
+      <li>
+        <%= rating %> | <%= link_to rating.user.username, user_path(rating.user.id) %>
+      </li>
     <% end %>
+
   </ul>
 </div>

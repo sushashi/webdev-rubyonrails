@@ -2,6 +2,8 @@
 
 <% content_for :title, "Breweries" %>
 
+<%= link_to "New brewery", new_brewery_path %>
+
 <h1>Breweries</h1>
 <p><b>Number of breweries: <%= @breweries.count %></b></p>
 
@@ -19,4 +21,3 @@
   <% end %>
 </div>
 
-<%= link_to "New brewery", new_brewery_path %>

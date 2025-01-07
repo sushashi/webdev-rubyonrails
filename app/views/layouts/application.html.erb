@@ -27,8 +27,29 @@
       <%= link_to 'breweries', breweries_path %>
       <%= link_to 'beers', beers_path %>
       <%= link_to 'ratings', ratings_path %>
-      
+      <%= link_to 'users', users_path %>
+      <%= link_to 'clubs', beerclubs_path %>
+      |
+      <% if current_user %>
+        <%= link_to current_user.username, user_path(current_user.id) %>
+        <%= link_to "Rate a new Beer", new_rating_path %>
+        <%= link_to "Join a Club", new_membership_path %>
+        <%= link_to "Sign out",
+        session_path,
+        data: {"turbo-method": :delete,
+        turbo_confirm: "Sign out?"} %>
+      <% else %>
+        <%= link_to "Sign in", new_session_path %>
+        <%= link_to "Sign up", new_user_path %>
+      <% end %>
     </div>
+
+    <% if session[:last_rating].nil? %>
+      <p>no ratings given</p>
+    <% else %>
+      <p>previous rating: <%= session[:last_rating] %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

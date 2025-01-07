@@ -1,5 +1,5 @@
 class BreweriesController < ApplicationController
-  before_action :set_brewery, only: %i[ show edit update destroy ]
+  before_action :set_brewery, only: %i[show edit update destroy]
   before_action :authenticate, only: [:destroy]
 
   # GET /breweries or /breweries.json
@@ -60,38 +60,40 @@ class BreweriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params.expect(:id))
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def brewery_params
+    params.expect(brewery: [:name, :year])
+  end
+
+  def authenticate
+    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+    # binding.pry
+
+    authenticate_or_request_with_http_basic do |username, password|
+      # if username == "admin" and password == "secret"
+      #   return true
+      # else
+      #   raise "Wrong username or password"
+      # end
+      # raise "Wrong username or password" unless username == "admin" and password == "secret"
+      # return true
+
+      # if admin_accounts.key?(username)
+      #   if admin_accounts[username] == password
+      #     return true
+      #   end
+      #   raise "Wrong username or password"
+      # end
+
+      raise "Wrong username or password" unless admin_accounts.key?(username) && admin_accounts[username] == password
+
+      return true
     end
-
-    # Only allow a list of trusted parameters through.
-    def brewery_params
-      params.expect(brewery: [ :name, :year ])
-    end
-
-    def authenticate
-      admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
-      # binding.pry
-
-      authenticate_or_request_with_http_basic do |username, password|
-        # if username == "admin" and password == "secret"
-        #   return true
-        # else
-        #   raise "Wrong username or password"
-        # end
-        # raise "Wrong username or password" unless username == "admin" and password == "secret"
-        # return true
-
-        # if admin_accounts.key?(username)
-        #   if admin_accounts[username] == password
-        #     return true
-        #   end
-        #   raise "Wrong username or password"
-        # end
-
-        raise "Wrong username or password" unless admin_accounts.key?(username) and admin_accounts[username] == password
-        return true
-      end
-    end
+  end
 end
