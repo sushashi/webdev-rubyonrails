@@ -14,13 +14,14 @@ The application deployed on render starts in the production environment and uses
 
 ### Links:
 May take a while to launch, It's on a free plan.
-- https://ratebeer-3fvl.onrender.com/breweries
-- https://ratebeer-3fvl.onrender.com/beers
+- https://ratebeer-t1t7.onrender.com/breweries
+- https://ratebeer-t1t7.onrender.com/beers
 
 ## Week 2
-- https://ratebeer-3fvl.onrender.com
+- https://ratebeer-t1t7.onrender.com
 
 ## Week 3
-- I reinitialized the web service and the database on render with, there was a problem with the database migration.
+- I reinitialized the web service and the database on render, there was a problem with the database migration. I also changed the region.
 - Comment/Uncomment database seed [here](/bin/render-build.sh) if needed, otherwise we get double entries.
-- Link updated: https://ratebeer-3fvl.onrender.com
+- Link updated: https://ratebeer-t1t7.onrender.com
+- Passwords used to signin on diverse accounts: `passworD*`
