@@ -14,13 +14,13 @@ The application deployed on render starts in the production environment and uses
 
 ### Links:
 May take a while to launch, It's on a free plan.
-- https://mysite-9qj1.onrender.com/breweries
-- https://mysite-9qj1.onrender.com/beers
+- https://ratebeer-3fvl.onrender.com/breweries
+- https://ratebeer-3fvl.onrender.com/beers
 
 ## Week 2
-
-- https://mysite-9qj1.onrender.com/
+- https://ratebeer-3fvl.onrender.com
 
 ## Week 3
 - I reinitialized the web service and the database on render with, there was a problem with the database migration.
-- Comment/Uncomment database seed [file](/db/seeds.rb) if needed.
+- Comment/Uncomment database seed [here](/bin/render-build.sh) if needed, otherwise we get double entries.
+- Link updated: https://ratebeer-3fvl.onrender.com
