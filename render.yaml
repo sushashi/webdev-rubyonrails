@@ -3,12 +3,14 @@ databases:
     databaseName: ratebeer
     user: ratebeer
     plan: free
+    region: frankfurt
 
 services:
   - type: web
     name: ratebeer
     runtime: ruby
     plan: free
+    region: frankfurt
     buildCommand: "./bin/render-build.sh"
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec rails server"
