@@ -15,4 +15,24 @@ class User < ApplicationRecord
 
   has_many :memberships, dependent: :destroy
   has_many :beerclubs, through: :memberships
+
+  def favorite_beer
+    return nil if ratings.empty?
+
+    # ratings.sort_by{|r| r.score}.last.beer
+    # ratings.sort_by(&:score).last.beer
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?
+    # puts "there are #{Beer.count} beers"
+    # puts "Style #{Beer.all.sort_by{|r| r.average_rating}.last.style}"
+    beers.all.sort_by{|r| r.average_rating}.last.style
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+    beers.all.sort_by{|r| r.average_rating}.last.brewery.name
+  end
 end

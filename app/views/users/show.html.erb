@@ -9,6 +9,12 @@
     average rating <%= @user.average_rating.round(1) %>
   </p>
 
+  <p>
+    favorite beer: <%= @user.favorite_beer %><br>
+    favorite style: <%= @user.favorite_style %><br>
+    favorite brewery: <%= @user.favorite_brewery %>
+  </p>
+
   <h3> member of </h3>
   <ul>
     <% @user.beerclubs.all.each do |beerclub| %>
@@ -19,12 +25,12 @@
   </ul>
 
   <h3>ratings</h3>
-  <ul>
+  <ul id="list-ratings">
     <% @user.ratings.each do |r| %>
       <li>
-        <%= r.beer.name %>, <%= r.score %> |
+        <%= r.beer.name %>, <%= r.score %>
         <% if @user == current_user %>
-          <%= link_to 'Delete', rating_path(r), data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %>
+          | <%= link_to 'Delete', rating_path(r), data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %>
         <% end %>
       </li>
     <% end %>

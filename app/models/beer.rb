@@ -11,7 +11,7 @@ class Beer < ApplicationRecord
   # end
 
   validates :name, presence: true
-
+  validates :style, presence: true
   def thing
     # binding.pry
   end

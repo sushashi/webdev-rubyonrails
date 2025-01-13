@@ -59,7 +59,13 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem 'capybara-wsl'
   gem "selenium-webdriver"
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails'
+  gem "webdrivers"
+  gem 'launchy'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

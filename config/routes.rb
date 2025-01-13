@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   root 'breweries#index'
 
   get 'all_beers', to: 'beers#index'
-  get 'beers/new', to: 'beers#new'
+  # get 'beers/new', to: 'beers#new'
 
   # get 'ratings', to: 'ratings#index'
   # get 'ratings/new', to: 'ratings#new'
