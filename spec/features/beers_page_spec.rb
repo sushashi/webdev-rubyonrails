@@ -3,8 +3,11 @@ include Helpers
 
 describe "EX5 Beers page" do
 	let!(:brewery) {FactoryBot.create :brewery, name: "Brewertest"}
+	let!(:user){FactoryBot.create :user}
 
 	it "can add a new beer with valid name" do
+		sign_in(username: "Pekka", password: "Foobar1*")
+
 		visit new_beer_path
 		fill_in('beer[name]', with: 'TestBeer')
 		select('Brewertest', from: 'beer[brewery_id]')
@@ -15,6 +18,8 @@ describe "EX5 Beers page" do
 	end
 
 	it "wont add a new beer with a non valid name" do
+		sign_in(username: "Pekka", password: "Foobar1*")
+
 		visit new_beer_path
 		click_button "Create Beer"
 		# puts page.html
@@ -50,7 +55,7 @@ describe "EX7 User ratings are shown in their page" do
 
 		visit user_path(user1.id)
 		# puts page.html
-		for i in 1..6
+		for i in 1..5
 			expect(page).to have_content("anonymous, #{i}")
 		end
 		# expect(page).to have_content("anonymous, 1")

@@ -1,6 +1,8 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[show edit update destroy]
-  before_action :authenticate, only: [:destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
+
+  # before_action :authenticate, only: [:destroy]
 
   # GET /breweries or /breweries.json
   def index
@@ -71,29 +73,29 @@ class BreweriesController < ApplicationController
     params.expect(brewery: [:name, :year])
   end
 
-  def authenticate
-    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
-    # binding.pry
+  # def authenticate
+  #   admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+  #   # binding.pry
 
-    authenticate_or_request_with_http_basic do |username, password|
-      # if username == "admin" and password == "secret"
-      #   return true
-      # else
-      #   raise "Wrong username or password"
-      # end
-      # raise "Wrong username or password" unless username == "admin" and password == "secret"
-      # return true
+  #   authenticate_or_request_with_http_basic do |username, password|
+  #     # if username == "admin" and password == "secret"
+  #     #   return true
+  #     # else
+  #     #   raise "Wrong username or password"
+  #     # end
+  #     # raise "Wrong username or password" unless username == "admin" and password == "secret"
+  #     # return true
 
-      # if admin_accounts.key?(username)
-      #   if admin_accounts[username] == password
-      #     return true
-      #   end
-      #   raise "Wrong username or password"
-      # end
+  #     # if admin_accounts.key?(username)
+  #     #   if admin_accounts[username] == password
+  #     #     return true
+  #     #   end
+  #     #   raise "Wrong username or password"
+  #     # end
 
-      raise "Wrong username or password" unless admin_accounts.key?(username) && admin_accounts[username] == password
+  #     raise "Wrong username or password" unless admin_accounts.key?(username) && admin_accounts[username] == password
 
-      return true
-    end
-  end
+  #     return true
+  #   end
+  # end
 end

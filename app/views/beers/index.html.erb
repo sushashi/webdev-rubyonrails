@@ -2,9 +2,12 @@
 
 <% content_for :title, "Beers" %>
 
-<p>
-  <%= link_to "New beer", new_beer_path %>
-</p>
+<% if not current_user.nil? %>
+  <p>
+    <%= link_to "New beer", new_beer_path %>
+  </p>
+<% end %>
+
 
 <h1>Beers</h1>
 
