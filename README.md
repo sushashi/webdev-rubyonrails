@@ -25,3 +25,6 @@ May take a while to launch, It's on a free plan.
 - Comment/Uncomment database seed [here](/bin/render-build.sh) if needed, otherwise we get double entries.
 - Link updated: https://ratebeer-t1t7.onrender.com
 - Passwords used to signin on diverse accounts: `passworD*`
+
+## Week 4
+- In Ex11, use `visit user_path(user1.id)` instead of `visit user_path(1)` for tests of Ex7-8.

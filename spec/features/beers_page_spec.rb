@@ -50,12 +50,12 @@ describe "EX7 User ratings are shown in their page" do
 
 		visit user_path(user1.id)
 		# puts page.html
-		# for i in 1..5
-		# 	expect(page).to have_content("anonymous, #{i}")
-		# end
-		expect(page).to have_content("anonymous, 1")
-		expect(page).to have_content("anonymous, 2")
-		expect(page).to have_content("anonymous, 3")
+		for i in 1..5
+			expect(page).to have_content("anonymous, #{i}")
+		end
+		# expect(page).to have_content("anonymous, 1")
+		# expect(page).to have_content("anonymous, 2")
+		# expect(page).to have_content("anonymous, 3")
 
 
 		expect(page).not_to have_content("anonymous, 10")

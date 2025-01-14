@@ -26,13 +26,17 @@ class User < ApplicationRecord
 
   def favorite_style
     return nil if ratings.empty?
+
     # puts "there are #{Beer.count} beers"
     # puts "Style #{Beer.all.sort_by{|r| r.average_rating}.last.style}"
-    beers.all.sort_by{|r| r.average_rating}.last.style
+    # beers.all.sort_by{ |r| r.average_rating }.last.style
+    beers.all.max_by(&:average_rating).style
   end
 
   def favorite_brewery
     return nil if ratings.empty?
-    beers.all.sort_by{|r| r.average_rating}.last.brewery.name
+
+    # beers.all.sort_by{ |r| r.average_rating }.last.brewery.name
+    beers.all.max_by(&:average_rating).brewery.name
   end
 end
