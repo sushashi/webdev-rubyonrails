@@ -42,8 +42,7 @@ jobs:
         run: bundle exec rspec
       - name: Run RuboCop
         run: bundle exec rubocop --parallel
-      - uses: JorgeLNJunior/render-deploy@v1.4.4
+      - name: Trigger deployment hook
         if: success()
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
