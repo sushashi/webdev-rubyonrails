@@ -49,7 +49,7 @@ describe "EX7 User ratings are shown in their page" do
 		create_beer_with_many_ratings_brewery({user: user3}, 6, 7, 8, 9, 22, brewery:"XXX")
 
 		visit user_path(1)
-		# puts page.html
+		puts page.html
 		# for i in 1..5
 		# 	expect(page).to have_content("anonymous, #{i}")
 		# end
@@ -70,7 +70,7 @@ describe "EX8 User delete own rating" do
 		create_beer_with_many_ratings_brewery({user: user}, 1, 2, 3, 4, 5, brewery:"BBB")
 		sign_in(username: "Pekka", password: "Foobar1*")
 		visit user_path(1)
-
+		puts page.html
 		using_wait_time(10) do
 			find("#list-ratings") do
 				item = find("li", text:"anonymous, 2")
