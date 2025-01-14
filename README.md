@@ -28,4 +28,5 @@ May take a while to launch, It's on a free plan.
 
 ## Week 4
 - In Ex11, use `visit user_path(user1.id)` instead of `visit user_path(1)` for tests of Ex7-8.
-- Ex12, `andrewmcodes-archive/rubocop-linter-action@v3.3.0` GitHub Actions doesn't work. 
+- Ex12, `andrewmcodes-archive/rubocop-linter-action@v3.3.0` GitHub Actions doesn't work.
+- Ex13, deactivate auto deployment in render and add the deployment hook in GitHub Actions.
