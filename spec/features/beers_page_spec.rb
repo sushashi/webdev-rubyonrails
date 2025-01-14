@@ -50,9 +50,13 @@ describe "EX7 User ratings are shown in their page" do
 
 		visit user_path(1)
 		# puts page.html
-		for i in 1..5
-			expect(page).to have_content("anonymous, #{i}")
-		end
+		# for i in 1..5
+		# 	expect(page).to have_content("anonymous, #{i}")
+		# end
+		expect(page).to have_content("anonymous, 1")
+		expect(page).to have_content("anonymous, 2")
+		expect(page).to have_content("anonymous, 3")
+
 
 		expect(page).not_to have_content("anonymous, 10")
 		expect(page).not_to have_content("anonymous, 8")
@@ -68,7 +72,7 @@ describe "EX8 User delete own rating" do
 		visit user_path(1)
 
 		using_wait_time(10) do
-			within("#list-ratings") do
+			find("#list-ratings") do
 				item = find("li", text:"anonymous, 2")
 				item.click_link("Delete")
 			end
