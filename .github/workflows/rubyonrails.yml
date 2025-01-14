@@ -50,6 +50,8 @@ jobs:
         with:
           ruby-version: '3.4'
           bundler-cache: true
+      - name: Install
+        run: bundle install
       - name: RuboCop Linter Action
         uses: andrewmcodes-archive/rubocop-linter-action@v3.3.0
         env:
