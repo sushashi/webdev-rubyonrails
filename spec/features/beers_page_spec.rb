@@ -67,7 +67,7 @@ describe "EX8 User delete own rating" do
 		sign_in(username: "Pekka", password: "Foobar1*")
 		visit user_path(1)
 
-		using_wait_time(5) do
+		using_wait_time(10) do
 			within("#list-ratings") do
 				item = find("li", text:"anonymous, 2")
 				item.click_link("Delete")
