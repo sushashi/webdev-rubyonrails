@@ -67,11 +67,12 @@ describe "EX8 User delete own rating" do
 		sign_in(username: "Pekka", password: "Foobar1*")
 		visit user_path(1)
 
-		within("#list-ratings") do
-			item = find("li", text:"anonymous, 2")
-			item.click_link("Delete")
+		using_wait_time(5) do
+			within("#list-ratings") do
+				item = find("li", text:"anonymous, 2")
+				item.click_link("Delete")
+			end
 		end
-
 		expect(page).not_to have_content("anonymous, 2")
 		expect(page).to have_content("anonymous, 1")
 
