@@ -15,6 +15,8 @@ class WeatherstackApi
   end
 
   def self.key
+
+    return ${{ secrets.WEATHERSTACK_APIKEY }} if Rails.env.production?
     return nil if Rails.env.test?
     raise "WEATHERSTACK_APIKEY env variable not defined" if ENV["WEATHERSTACK_APIKEY"].nil?
 
