@@ -36,3 +36,5 @@ May take a while to launch, It's on a free plan.
 ## Week 5
 
 - WeatherstackApi is limited to 100 calls per month
+- add `require 'ostruct'` in [place model](/app/models/place.rb)
+- 
