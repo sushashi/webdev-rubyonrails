@@ -14,16 +14,16 @@ The application deployed on render starts in the production environment and uses
 
 ### Links:
 May take a while to launch, It's on a free plan.
-- https://ratebeer-t1t7.onrender.com/breweries
-- https://ratebeer-t1t7.onrender.com/beers
+- https://ratebeer-b037.onrender.com//breweries
+- https://ratebeer-b037.onrender.com//beers
 
 ## Week 2
-- https://ratebeer-t1t7.onrender.com
+- https://ratebeer-b037.onrender.com/
 
 ## Week 3
 - I reinitialized the web service and the database on render, there was a problem with the database migration. I also changed the region.
 - Comment/Uncomment database seed [here](/bin/render-build.sh) if needed, otherwise we get double entries.
-- Link updated: https://ratebeer-t1t7.onrender.com
+- Link updated: https://ratebeer-b037.onrender.com/
 - Passwords used to signin on diverse accounts: `passworD*`
 
 ## Week 4
@@ -35,6 +35,7 @@ May take a while to launch, It's on a free plan.
 
 ## Week 5
 
-- WeatherstackApi is limited to 100 calls per month
-- add `require 'ostruct'` in [place model](/app/models/place.rb)
-- 
+- WeatherstackApi is limited to 100 calls per month (exceeding limit is not handled)
+- added `require 'ostruct'` in [place model](/app/models/place.rb) (Does not work in render otherwise)
+- `WEATHERSTACK_APIKEY` set in render.com
+- URL changed

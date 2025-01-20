@@ -15,7 +15,6 @@ class WeatherstackApi
   end
 
   def self.key
-
     return nil if Rails.env.test?
     raise "WEATHERSTACK_APIKEY env variable not defined" if ENV["WEATHERSTACK_APIKEY"].nil?
 
