@@ -32,3 +32,7 @@ May take a while to launch, It's on a free plan.
 - Ex13, deactivate auto deployment in render and add the deployment hook URL in [`rubyonrail.yml`](/.github/workflows/rubyonrails.yml)
 
 - Ex14, [![Maintainability](https://api.codeclimate.com/v1/badges/b599a0be33fab8a8acc3/maintainability)](https://codeclimate.com/github/sushashi/webdev-rubyonrails/maintainability)
+
+## Week 5
+
+- WeatherstackApi is limited to 100 calls per month
