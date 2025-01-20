@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[show edit update destroy]
-
+  before_action :set_membership, only: %i[show edit update]
+  # before_action :set_membership_to_delete, only: %i[destroy]
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
@@ -28,7 +28,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: "Membership was successfully created." }
+        format.html { redirect_to beerclub_path(@membership.beerclub_id), notice: "#{current_user.username} welcome to the club." }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,15 +52,24 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
-    @membership.destroy!
+    # binding.pry
+    beerclub_id = params[:membership]["beerclub_id"]
+    user_id = params[:membership]["user_id"]
+    @membership_todel = Membership.find_by(beerclub_id: beerclub_id, user_id: user_id)
+    # puts params[:membership]
 
+    @membership_todel.destroy!
     respond_to do |format|
-      format.html { redirect_to memberships_path, status: :see_other, notice: "Membership was successfully destroyed." }
+      format.html { redirect_to beerclub_path(beerclub_id), status: :see_other, notice: "#{current_user.username} successfully left the club." }
       format.json { head :no_content }
     end
   end
 
   private
+
+  def set_membership_to_delete
+    @membership_todel = Membership.find_by(beerclub_id: params[:beerclub_id], user_id: params[:user_id])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_membership

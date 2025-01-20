@@ -25,4 +25,21 @@
       </li>
     <% end %>
   </ul>
+  
+  <% if current_user && !@is_member %>
+    <h4>Join the club</h4>
+    <%= form_with(model: @membership) do |form| %>
+      <%= form.hidden_field :beerclub_id, value: @beerclub.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.submit "Join the beer club" %>
+    <% end %>
+  <% end %>
+
+  <% if current_user && @is_member %>
+    <%= form_with(model: @membership, method: :delete) do |form| %>
+      <%= form.hidden_field :beerclub_id, value: @beerclub.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.submit "End the membership" %>
+    <% end %>
+  <% end %>
 </div>

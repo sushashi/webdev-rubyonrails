@@ -30,7 +30,7 @@ class User < ApplicationRecord
     # puts "there are #{Beer.count} beers"
     # puts "Style #{Beer.all.sort_by{|r| r.average_rating}.last.style}"
     # beers.all.sort_by{ |r| r.average_rating }.last.style
-    beers.all.max_by(&:average_rating).style
+    beers.all.max_by(&:average_rating).style.name
   end
 
   def favorite_brewery

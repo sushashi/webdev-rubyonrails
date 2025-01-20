@@ -2,6 +2,7 @@
 
 <%= render @beerclub %>
 
+<br>
 <div>
   <%= link_to("Edit this beerclub", edit_beerclub_path(@beerclub)) if current_user %> 
   <%= link_to "Back to beerclubs", beerclubs_path %>

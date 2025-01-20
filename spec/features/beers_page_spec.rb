@@ -2,6 +2,7 @@ require 'rails_helper'
 include Helpers
 
 describe "EX5 Beers page" do
+	let!(:style) {FactoryBot.create :style, name: "IPA"}
 	let!(:brewery) {FactoryBot.create :brewery, name: "Brewertest"}
 	let!(:user){FactoryBot.create :user}
 

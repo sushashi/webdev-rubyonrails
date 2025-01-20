@@ -10,9 +10,14 @@ FactoryBot.define do
     year { 1900 }
   end
 
+  factory :style do
+    name {"IPA"}
+    description {"India Pale Ale style"}
+  end
+
   factory :beer do
     name {"anonymous"}
-    style {"Lager"}
+    style
     brewery #is created with brewery factory
   end
 

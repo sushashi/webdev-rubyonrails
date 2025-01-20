@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Styles" %>
+
+<h1>Styles</h1>
+
+<div id="styles">
+<ul>
+  <% @styles.each do |style| %>
+    <li>
+      <%= link_to style.name, style %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<%= link_to "New style", new_style_path %>

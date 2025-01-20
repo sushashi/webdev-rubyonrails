@@ -67,6 +67,7 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'rubocop'
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -80,3 +81,5 @@ end
 group :development, :test do
   gem 'pry-byebug'
 end
+
+gem 'httparty'
