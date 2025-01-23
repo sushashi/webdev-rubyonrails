@@ -2,22 +2,36 @@
 
 <% content_for :title, "Breweries" %>
 
-<%= link_to "New brewery", new_brewery_path %>
-
 <h1>Breweries</h1>
-<p><b>Number of breweries: <%= @breweries.count %></b></p>
 
-<div id="breweries">
-  <% @breweries.each do |brewery| %>
+<p><b>Number of active breweries: <%= @active_breweries.count %></b></p>
+
+<div id="active_breweries">
+  <% @active_breweries.each do |brewery| %>
     <div id="<%= dom_id brewery %>">
-      <p>
-        <%= link_to brewery.name, brewery %>
-      </p>
-      <p>
-        <strong>Year:</strong>
-        <%= brewery.year %>
-      </p>
+        <strong><%= link_to brewery.name, brewery %></strong>
+        <ul>
+          <li>
+            Year: <%= brewery.year %>
+          </li>
+        </ul>
     </div>
   <% end %>
 </div>
 
+<p><b>Number of retired breweries: <%= @retired_breweries.count %></b></p>
+
+<div id="retired_breweries">
+  <% @retired_breweries.each do |brewery| %>
+    <div id="<%= dom_id brewery %>">
+        <strong><%= link_to brewery.name, brewery %></strong>
+        <ul>
+          <li>
+            Year: <%= brewery.year %>
+          </li>
+        </ul>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New brewery", new_brewery_path, class:'btn btn-primary' if current_user %>

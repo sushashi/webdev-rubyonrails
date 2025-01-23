@@ -2,9 +2,14 @@ Rails.application.routes.draw do
   resources :styles
   resources :memberships
   resources :beerclubs
-  resources :users
+  resources :users do
+    post 'toggle_account_status', on: :member
+  end
   resources :beers
-  resources :breweries
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -41,4 +46,5 @@ Rails.application.routes.draw do
 
   get 'places/:id', to: 'places#show'
   delete 'memberships', to: 'memberships#destroy'
+
 end

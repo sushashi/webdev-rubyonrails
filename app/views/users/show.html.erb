@@ -1,9 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
 <div>
-  <h2>Username</h2>
-  <%= @user.username %>
 
+  <h2>
+    <%= @user.username %>
+    <% if @user.closed? or @user.closed.nil? %>
+      <span class="badge bg-danger", style="font-size: 0.4em">Closed</span>
+    <% else %>
+      <span class="badge bg-primary", style="font-size: 0.4em">Active</span>
+    <% end %>
+  </h2>
+
+  <% if current_user && current_user.admin? %>
+  <%= link_to "Change account status", toggle_account_status_user_path(@user.id), data: {turbo_method: "post"}, class: "btn btn-danger btn-sm mt-1 mb-4" %>
+  <% end %>
+ 
   <p>
     has made <%= pluralize(@user.ratings.count, 'rating') %>,
     average rating <%= @user.average_rating.round(1) %>
@@ -11,8 +22,8 @@
 
   <p>
     favorite beer: <%= @user.favorite_beer %><br>
-    favorite style: <%= @user.favorite_style %><br>
-    favorite brewery: <%= @user.favorite_brewery %>
+    favorite style: <%= @user.favorite_style&.name %><br>
+    favorite brewery: <%= @user.favorite_brewery&.name %>
   </p>
 
   <h3> member of </h3>
@@ -23,14 +34,14 @@
       </li>
     <% end %>
   </ul>
-
+  
   <h3>ratings</h3>
   <ul id="list-ratings">
     <% @user.ratings.each do |r| %>
       <li>
         <%= r.beer.name %>, <%= r.score %>
         <% if @user == current_user %>
-          | <%= link_to 'Delete', rating_path(r), data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %>
+          | <%= link_to 'Delete', rating_path(r), class:'btn btn-danger btn-sm', data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %>
         <% end %>
       </li>
     <% end %>
@@ -39,10 +50,8 @@
 
 <div>
   <% if @user == current_user %>
-    <%= link_to "Edit this user", edit_user_path(@user) %> |
-    <%= button_to "Destroy this user", @user, method: :delete %>
+    <%= edit_and_destroy_buttons(@user) %>
   <% end %>
-
-  <%= link_to "Back to users", users_path %>
-
 </div>
+
+<%= link_to "Back to users", users_path %>

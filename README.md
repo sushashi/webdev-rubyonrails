@@ -39,3 +39,27 @@ May take a while to launch, It's on a free plan.
 - added `require 'ostruct'` in [place model](/app/models/place.rb) (Does not work in render otherwise)
 - `WEATHERSTACK_APIKEY` set in render.com
 - URL changed
+
+## Week 6
+
+- Bootstrap installation in the course material does not work, here is a working solution:
+  - Add these gems to `Gemfile`
+    ```
+    gem 'bootstrap', '~> 5.3.3'
+    gem 'dartsass-rails'
+    ```
+  - Run `bundle install`
+  - Rename `app/assets/stylesheets/application.css` to `app/assets/stylesheets/application.scss` and add `@import "bootstrap";`
+  - In `app/javascript/application.js` add
+    ```
+    import "popper"
+    import "bootstrap"
+    ```
+  - In `config/importmap.rb` add
+    ```
+    pin "popper", to: 'popper.js', preload: true
+    pin "bootstrap", to: 'bootstrap.min.js', preload: true
+    ```
+  - Clear asset cache with `rails tmp:clear`
+  - Precompile assets with `rails assets:precompile`
+  - Run server `rails s`

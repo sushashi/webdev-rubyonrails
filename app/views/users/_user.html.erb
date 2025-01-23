@@ -1,7 +1,12 @@
 <div id="<%= dom_id user %>">
   <p>
-    <strong>Username:</strong>
-    <%= user.username %>
+    <strong><%= link_to user.username, user_path(user.id) %></strong>
+    <% if user.closed? or user.closed.nil? %>
+      <span class="badge bg-danger">Closed</span>
+    <% else %>
+      <span class="badge bg-primary">Active</span>
+    <% end %>
   </p>
+
 
 </div>

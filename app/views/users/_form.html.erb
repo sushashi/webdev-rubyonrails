@@ -11,24 +11,30 @@
     </div>
   <% end %>
   
-  <% if @user.new_record? %>
-  <div>
-    <%= form.label :username, style: "display: block" %>
-    <%= form.text_field :username %>
-  </div>
-  <% end %>
+  <div class="container">
+    <div class="col-sm-6">
+      <% if @user.new_record? %>
+      
+      <div class="mb-2">
+        <%= form.label :username, style: "display: block" %>
+        <%= form.text_field :username, class:"form-control form-control-sm" %>
+      </div>
+      <% end %>
 
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password %>
+      <div class="mb-2">
+        <%= form.label :password, style: "display: block" %>
+        <%= form.password_field :password, class:"form-control form-control-sm" %>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label :password_confirmation, style: "display:block" %>
+        <%= form.password_field :password_confirmation, class:"form-control form-control-sm" %>
+      </div>
+
+      <div>
+        <%= form.submit "Sign up", class:"btn btn-primary btn-sm" %>
+      </div>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :password_confirmation, style: "display:block" %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

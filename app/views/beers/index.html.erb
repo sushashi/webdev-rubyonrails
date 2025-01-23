@@ -2,29 +2,29 @@
 
 <% content_for :title, "Beers" %>
 
-<% if not current_user.nil? %>
-  <p>
-    <%= link_to "New beer", new_beer_path %>
-  </p>
-<% end %>
-
-
 <h1>Beers</h1>
 
 <div id="beers">
-  <% @beers.each do |beer| %>
-    <p>
-      <strong>Name:</strong>
-      <%= link_to beer.name, beer_path(beer.id) %>
-    </p>
-
-    <p>
-      <strong>Style:</strong>
-      <%= link_to beer.style, style_path(beer.style.id) %>
-    </p>
-    <p>
-      <strong>Brewery:</strong>
-      <%= link_to beer.brewery.name, brewery_path(beer.brewery.id) %>
-    </p>
-  <% end %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Beer</th>
+        <th scope="col">Style</th>
+        <th scope="col">Brewery</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @beers.each do |beer| %>
+        <tr>
+          <td scope="row"><%= link_to beer.name, beer_path(beer.id) %></td>
+          <td scope="row"><%= link_to beer.style, style_path(beer.style.id) %></td>
+          <td scope="row"><%= link_to beer.brewery.name, brewery_path(beer.brewery.id) %></td>
+          <td scope="row"><%= beer.average_rating %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
+
+<%= link_to "New beer", new_beer_path, class:'btn btn-primary' if current_user %> 

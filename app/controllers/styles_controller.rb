@@ -1,5 +1,10 @@
 class StylesController < ApplicationController
   before_action :set_style, only: %i[show edit update destroy]
+  before_action :ensure_that_admin, only: [:destroy]
+
+  def ensure_that_admin
+    raise "You must be an administrator" unless current_user.admin?
+  end
 
   # GET /styles or /styles.json
   def index

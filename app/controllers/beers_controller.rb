@@ -1,6 +1,11 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[show edit update destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_admin, only: [:destroy]
+
+  def ensure_that_admin
+    raise "You must be an administrator" unless current_user.admin?
+  end
 
   # GET /beers or /beers.json
   def index

@@ -123,7 +123,7 @@ RSpec.describe User, type: :model do
 
     it "is the only style if only one rating" do
       beer = create_beer_with_rating_style({user: user}, 10, style:"Lager")
-      expect(user.favorite_style).to eq("Lager")
+      expect(user.favorite_style['name']).to eq("Lager")
     end
 
     it "is the style whose beers have the highest average rating if several rated" do
@@ -131,7 +131,7 @@ RSpec.describe User, type: :model do
       create_beer_with_many_ratings_style({user: user}, 1, 2, 3, 1, 2, style:"Lager")
       create_beer_with_many_ratings_style({user: user}, 5, 5, 7, 21, 2, style:"Blonde")
       
-      expect(user.favorite_style).to eq("IPA")
+      expect(user.favorite_style['name']).to eq("IPA")
     end
   end
 
@@ -147,7 +147,7 @@ RSpec.describe User, type: :model do
 
     it "is the only brewery if only one rating" do
       beer = create_beer_with_rating({user: user}, 10)
-      expect(user.favorite_brewery).to eq(beer.brewery.name)
+      expect(user.favorite_brewery['name']).to eq(beer.brewery.name)
     end
 
     it "is the brewery whose beers have the highest average rating if several rated" do
@@ -155,7 +155,7 @@ RSpec.describe User, type: :model do
       create_beer_with_many_ratings_brewery({user: user}, 10, 20, 30, 34, 24, brewery:"XXX")
       create_beer_with_many_ratings_brewery({user: user}, 5, 5, 7, 21, 2, brewery:"CCC")
       
-      expect(user.favorite_brewery).to eq("XXX")
+      expect(user.favorite_brewery['name']).to eq("XXX")
     end
   end
 end

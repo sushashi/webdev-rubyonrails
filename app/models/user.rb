@@ -16,27 +16,47 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :beerclubs, through: :memberships
 
+  def self.most_active_users(number)
+    User.all.sort_by{ |u| - u.ratings.count }.first(number)
+  end
+
   def favorite_beer
     return nil if ratings.empty?
 
-    # ratings.sort_by{|r| r.score}.last.beer
-    # ratings.sort_by(&:score).last.beer
     ratings.order(score: :desc).limit(1).first.beer
   end
 
-  def favorite_style
-    return nil if ratings.empty?
+  # def favorite_style
+  #   favorite(:style)
+  # end
 
-    # puts "there are #{Beer.count} beers"
-    # puts "Style #{Beer.all.sort_by{|r| r.average_rating}.last.style}"
-    # beers.all.sort_by{ |r| r.average_rating }.last.style
-    beers.all.max_by(&:average_rating).style.name
+  # def favorite_brewery
+  #   favorite(:brewery)
+  # end
+
+  # favorite_available_by :style, :brewery
+
+  def method_missing(method_name, *args, &)
+    return super unless method_name =~ /^favorite_/
+
+    category = method_name[9..].to_sym
+    favorite category
   end
 
-  def favorite_brewery
+  def respond_to_missing?(method_name, include_private = false)
+    method_name.to_s.start_with?('favorite_') || super
+  end
+
+  def favorite(groupped_by)
     return nil if ratings.empty?
 
-    # beers.all.sort_by{ |r| r.average_rating }.last.brewery.name
-    beers.all.max_by(&:average_rating).brewery.name
+    grouped_ratings = ratings.group_by{ |r| r.beer.send(groupped_by) }
+    averages = grouped_ratings.map { |group, ratings| { group: group, score: average_of(ratings) } }
+
+    averages.max_by{ |r| r[:score] }[:group]
+  end
+
+  def average_of(ratings)
+    ratings.sum(&:score).to_f / ratings.count
   end
 end

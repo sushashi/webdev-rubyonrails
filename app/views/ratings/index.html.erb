@@ -1,19 +1,101 @@
-<p>
-  <%= link_to "New rating", new_rating_path %>
-</p>
+<p></p>
 
+<h1>Ratings</h1>
 
-<h1>List of ratings</h1>
+<div class="row">
+  <div class="col-sm-4">
+		<div class="container text-center"><h4>Best beers</h4></div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Beer</th>
+          <th>Avg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @beers_best_three.each do |b| %>
+          <tr>
+            <td><%= b.name %></td>
+            <td><%= b.average_rating %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
+  <div class="col-sm-4">
+    <div class="container text-center"><h4>Best breweries</h1></div>
+    <table class="table table-hover">
+      <thead>
+				<tr>
+					<th>Brewery</th>
+					<th>Avg</th>
+				</tr>
+      </thead>
+			<tbody>
+				<% @breweries_best_three.each do |b| %>
+					<tr>
+						<td><%= b.name %></td>
+						<td><%= b.average_rating %></td>
+					</tr>
+				<% end %>
+			</tbody>
+    </table>
+  </div>
+	
+	<div class="col-sm-4">
+		<div class="container text-center"><h4>Best styles</h4></div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Style</th>
+					<th>Avg</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @best_three_styles.each do |s| %>
+					
+					<tr>
+						<td><%= s[0] %></td>
+						<td><%= s[1] %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<div>
+	<h4>Most active users</h4>
+	<ol>
+		<% @most_active_users.each do |u| %>
+			<li><%= u.username %> with <%= u.ratings.count %> ratings </li>
+		<%end%>
+	</ol>
+</div>
+
+<div>
+	<h4>The last five ratings</h4>
+	<ul>
+		<% @last_five_ratings.each do |r| %>
+			<li><%= r.beer.name %>, <%= r.score %> by <%= link_to r.user.username, user_path(r.user.id) %></li>
+		<% end %>
+	</ul>
+</div>
+
+<h4>List of all ratings</h4>
 <p>There are <%= pluralize(Rating.count, "rating") %></p>
 
 <div id="ratings">
   <ul>
     <% @ratings.each do |rating| %>
       <li>
-        <%= rating %> | <%= link_to rating.user.username, user_path(rating.user.id) %>
+        <%= rating %>, <%= rating.beer.style %> | <%= link_to rating.user.username, user_path(rating.user.id) %>
       </li>
     <% end %>
 
   </ul>
 </div>
+
+<%= link_to "New rating", new_rating_path, class:"btn btn-primary" %>

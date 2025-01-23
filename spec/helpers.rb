@@ -4,7 +4,7 @@ module Helpers
 		visit signin_path
 		fill_in('username', with: credentials[:username])
 		fill_in('password', with: credentials[:password])
-		click_button('Log in')
+		click_button('Login')
 	end
 
 	def create_beer_with_many_ratings_brewery(object, *scores, brewery:)

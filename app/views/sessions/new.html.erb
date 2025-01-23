@@ -1,9 +1,18 @@
+<p></p>
 <h1>Sign in</h1>
 
 <p style="color: red"><%= notice %></p>
 
-<%= form_with url: session_path, method: :post do |form| %>
-  username <%= form.text_field :username %> <br>
-  password <%= form.password_field :password %> <br>
-  <%= form.submit "Log in" %>
-<% end %>
+<div class="container">
+  <%= form_with url: session_path, method: :post do |form| %>
+    <div class="col-sm-6">
+      <div class="mb-2">
+        <%= form.text_field :username, class:"form-control form-control-sm", placeholder:"Username" %>
+      </div>
+      <div class="mb-2">
+        <%= form.password_field :password, class:"form-control form-control-sm", placeholder:"Password" %>
+      </div>
+      <%= form.submit "Login" , class:"btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+</div>

@@ -83,3 +83,6 @@ group :development, :test do
 end
 
 gem 'httparty'
+
+gem 'bootstrap', '~> 5.3.3'
+gem 'dartsass-rails'

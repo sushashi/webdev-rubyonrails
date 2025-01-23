@@ -6,15 +6,12 @@ class Beer < ApplicationRecord
   has_many :raters, -> { distinct }, through: :ratings, source: :user
 
   belongs_to :style
-  # def average_rating
-  #     # self.ratings.sum(:score).to_f / self.ratings.count
-  #     self.ratings.map {|i| i.score}.reduce(0,:+) / self.ratings.count.to_f
-  # end
 
   validates :name, presence: true
   validates :style_id, presence: true
-  def thing
-    # binding.pry
+
+  def self.best(number)
+    Beer.all.sort_by{ |b| - b.average_rating }.first(number)
   end
 
   def to_s
