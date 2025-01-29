@@ -1,7 +1,16 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[show edit update destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :empty_cache, only: [:create, :destroy, :update]
+
+  def empty_cache
+    expire_fragment('brewerieslist')
+    %w(beerlist-name beerlist-brewery beerlist-style beerlist-rating).each{ |f| expire_fragment(f) }
+  end
+
+  def list
+  end
 
   def ensure_that_admin
     raise "You must be an administrator" unless current_user.admin?
@@ -9,7 +18,20 @@ class BeersController < ApplicationController
 
   # GET /beers or /beers.json
   def index
-    @beers = Beer.all
+    @order = params[:order] || 'name'
+
+    # if fragment exist, stop the method here (i.e. render the view immediately)
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
+
+    @beers = Beer.includes(:brewery, :style, :ratings).all
+    # @beers = Beer.all
+
+    @beers = case @order
+             when "name" then @beers.sort_by(&:name)
+             when "brewery" then @beers.sort_by { |b| b.brewery.name }
+             when "style" then @beers.sort_by { |b| b.style.name }
+             when "rating" then @beers.sort_by(&:average_rating).reverse
+             end
   end
 
   # GET /beers/1 or /beers/1.json

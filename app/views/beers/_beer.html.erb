@@ -1,4 +1,5 @@
 <div id="<%= dom_id beer %>">
+  <% cache @beer do %>
   <p>
     <strong>Name:</strong>
     <%= link_to beer.name, beer_path(beer.id) %>
@@ -21,6 +22,7 @@
       Beer has <%= pluralize(beer.ratings.count, 'rating') %> with an average of <%= beer.average_rating %>
     <% end %>
   </p>
-
+  
+  <% end %>
 
 </div>

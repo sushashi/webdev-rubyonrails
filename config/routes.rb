@@ -47,4 +47,6 @@ Rails.application.routes.draw do
   get 'places/:id', to: 'places#show'
   delete 'memberships', to: 'memberships#destroy'
 
+  get 'beerlist', to: 'beers#list'
+  get 'brewerylist', to: 'breweries#list'
 end

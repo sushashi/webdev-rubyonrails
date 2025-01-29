@@ -4,34 +4,46 @@
 
 <h1>Breweries</h1>
 
-<p><b>Number of active breweries: <%= @active_breweries.count %></b></p>
+<% cache 'brewerieslist', skip_digest: true do %>
 
-<div id="active_breweries">
-  <% @active_breweries.each do |brewery| %>
-    <div id="<%= dom_id brewery %>">
-        <strong><%= link_to brewery.name, brewery %></strong>
-        <ul>
-          <li>
-            Year: <%= brewery.year %>
-          </li>
-        </ul>
-    </div>
-  <% end %>
-</div>
+  <p><b>Number of active breweries: <%= @active_breweries.count %></b></p>
+  <div id="active_breweries">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Founded</th>
+          <th>Beers</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @active_breweries.each do |brewery| %>
+          <tr>
+            <td><%= link_to brewery.name, brewery %></td>
+            <td><%= brewery.year %></td>
+            <td><%= brewery.beers.size %></td>
+            <td><%= brewery.average_rating %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<p><b>Number of retired breweries: <%= @retired_breweries.count %></b></p>
+  <p><b>Number of retired breweries: <%= @retired_breweries.count %></b></p>
+  <div id="retired_breweries">
+    <% @retired_breweries.each do |brewery| %>
+      <div id="<%= dom_id brewery %>">
+          <strong><%= link_to brewery.name, brewery %></strong>
+          <ul>
+            <li>
+              Year: <%= brewery.year %>
+            </li>
+          </ul>
+      </div>
+    <% end %>
+  </div>
 
-<div id="retired_breweries">
-  <% @retired_breweries.each do |brewery| %>
-    <div id="<%= dom_id brewery %>">
-        <strong><%= link_to brewery.name, brewery %></strong>
-        <ul>
-          <li>
-            Year: <%= brewery.year %>
-          </li>
-        </ul>
-    </div>
-  <% end %>
-</div>
+<% end %>
 
 <%= link_to "New brewery", new_brewery_path, class:'btn btn-primary' if current_user %>

@@ -56,8 +56,8 @@
 				<% @best_three_styles.each do |s| %>
 					
 					<tr>
-						<td><%= s[0] %></td>
-						<td><%= s[1] %></td>
+						<td><%= s.name %></td>
+						<td><%= s.average_rating %></td>
 					</tr>
 				<% end %>
 			</tbody>
@@ -87,15 +87,6 @@
 <h4>List of all ratings</h4>
 <p>There are <%= pluralize(Rating.count, "rating") %></p>
 
-<div id="ratings">
-  <ul>
-    <% @ratings.each do |rating| %>
-      <li>
-        <%= rating %>, <%= rating.beer.style %> | <%= link_to rating.user.username, user_path(rating.user.id) %>
-      </li>
-    <% end %>
 
-  </ul>
-</div>
 
-<%= link_to "New rating", new_rating_path, class:"btn btn-primary" %>
+<%= link_to "New rating", new_rating_path, class:"btn btn-primary" if current_user %>

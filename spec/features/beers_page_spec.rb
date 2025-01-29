@@ -13,6 +13,7 @@ describe "EX5 Beers page" do
 		fill_in('beer[name]', with: 'TestBeer')
 		select('Brewertest', from: 'beer[brewery_id]')
 		click_button "Create Beer"
+		puts page.html
 
 		expect(page).to have_content("Beer was successfully created")
 		expect(Beer.count).to eq(1)
@@ -23,7 +24,6 @@ describe "EX5 Beers page" do
 
 		visit new_beer_path
 		click_button "Create Beer"
-		# puts page.html
 		
 		expect(current_path).to eq("/beers")
 		expect(page).to have_content("prohibited this beer from being saved")

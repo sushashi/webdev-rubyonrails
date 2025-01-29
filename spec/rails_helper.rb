@@ -8,6 +8,11 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'helpers'
 require 'webmock/rspec'
+
+# require 'webdrivers/chromedriver'
+# Selenium::WebDriver::Chrome.path = './chromedriver-linux64/chromedriver-linux64/chromedriver'
+
+
 require 'simplecov'
 SimpleCov.start('rails')
 # Requires supporting ruby files with custom matchers and macros, etc, in

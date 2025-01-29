@@ -1,4 +1,5 @@
 class Brewery < ApplicationRecord
+  extend Best
   include RatingAverage
 
   has_many :beers, dependent: :destroy
@@ -12,9 +13,9 @@ class Brewery < ApplicationRecord
   scope :active, -> { where active: true }
   scope :retired, -> { where active: [nil, false] }
 
-  def self.best(number)
-    Brewery.all.sort_by{ |b| - b.average_rating }.first(number)
-  end
+  # def self.best(number)
+  #   Brewery.all.sort_by{ |b| - b.average_rating }.first(number)
+  # end
 
   def validate_current_year
     return unless year.present? && year > Date.current.year
