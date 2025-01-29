@@ -63,3 +63,9 @@ May take a while to launch, It's on a free plan.
   - Clear asset cache with `rails tmp:clear`
   - Precompile assets with `rails assets:precompile`
   - Run server `rails s`
+
+## Week 7
+- Deactivated tests in GitHub Actions.
+- Couldn't make `chromedriver` or `selenium` to work.
+- `User01` is the admin with password `passworD*`
+- `db:seed` in GitHub Actions using `seed` from lecture.
