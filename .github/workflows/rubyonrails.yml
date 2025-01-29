@@ -37,7 +37,7 @@ jobs:
         run: chmod +x bin/*
       - name: Set up database
         run: |
-          bin/rails db:create db:migrate db:seed
+          bin/rails db:create db:migrate
       # - name: Run tests
       #   run: bundle exec rspec
       - name: Run RuboCop

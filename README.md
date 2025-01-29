@@ -70,4 +70,4 @@ May take a while to launch, It's on a free plan.
 - Deactivated tests in GitHub Actions.
 - Couldn't get `chromedriver` or `selenium` to work.
 - `User01` is the admin with password `passworD*`
-- `db:seed` in GitHub Actions using `seed` from lecture.
+- `db:seed` [here](/bin/render-build.sh).
