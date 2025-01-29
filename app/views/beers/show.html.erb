@@ -1,17 +1,20 @@
 <p style="color: green"><%= notice %></p>
-<p>
-  <%= link_to "All breweries", breweries_path %>
-</p>
 
 <%= render @beer %>
 
 <% if current_user %>
 <div class="mb-3">
-    <h4>give a rating:</h4>
+    <h4>Give a rating:</h4>
     <%= form_with(model: @rating) do |form| %>
       <%= form.hidden_field :beer_id %>
-      score: <%= form.number_field :score %>
-      <%= form.submit "Create rating" %>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= form.number_field :score, class:"form-control", placeholder:"Enter score"%>
+        </div>
+        <div class="col-sm-2">
+          <%= form.submit "Create rating", class:"btn btn-primary"%>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>

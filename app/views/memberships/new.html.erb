@@ -1,6 +1,6 @@
 <% content_for :title, "New membership" %>
 
-<h1>New membership</h1>
+<h1 class="mt-3">New membership</h1>
 
 <%= form_for(@membership) do |f| %>
   <% if @membership.errors.any? %>
@@ -13,9 +13,10 @@
           </ul>
       </div>
   <% end %>
-  
-  <%= f.select :beerclub_id, options_from_collection_for_select(@beerclubs.where.not(id: current_user.beerclubs.pluck(:id)), :id, :name) %>
-  <%= f.submit %>
+  <div class="mb-2 mt-4">
+    <%= f.select :beerclub_id, options_from_collection_for_select(@beerclubs.where.not(id: current_user.beerclubs.pluck(:id)), :id, :name), {}, { :class => 'form-select' } %>
+  </div>
+  <%= f.submit "Become member", class:"btn btn-primary" %>
 <% end %>
 <br>
 
