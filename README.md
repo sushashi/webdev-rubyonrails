@@ -65,7 +65,9 @@ May take a while to launch, It's on a free plan.
   - Run server `rails s`
 
 ## Week 7
+- https://ratebeer-b037.onrender.com/
+  > note that free PostgreSQL Database on render.com expires 1 month after its creation!
 - Deactivated tests in GitHub Actions.
-- Couldn't make `chromedriver` or `selenium` to work.
+- Couldn't get `chromedriver` or `selenium` to work.
 - `User01` is the admin with password `passworD*`
 - `db:seed` in GitHub Actions using `seed` from lecture.
