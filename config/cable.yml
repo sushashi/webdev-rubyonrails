@@ -16,8 +16,12 @@ test:
 #   polling_interval: 0.1.seconds
 #   message_retention: 1.day
 
+# production:
+#   adapter: solid_cable
+#   connects_to:
+#     database:
+#       writing: primary
+
 production:
-  adapter: solid_cable
-  connects_to:
-    database:
-      writing: primary
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379/0") %>
