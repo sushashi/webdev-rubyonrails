@@ -1,4 +1,5 @@
-<%= form_with(model: brewery) do |form| %>
+<div data-controller="breweries">
+<%= form_with model: brewery , data: { controller: "breweries", action: "turbo:submit-end->breweries#clear_submit" } do |form| %>
   <% if brewery.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(brewery.errors.count, "error") %> prohibited this brewery from being saved:</h2>
@@ -11,22 +12,30 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+    <div class=" border rounded m-1 p-3" >
+      <h4>New Brewery</h4>
 
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
-  </div>
+      <div class="mb-2">
+        <%= form.select :brewery_name, options_for_select(@breweries_name, form.object.name ), {}, { :class => 'form-select', data: { "breweries-target": "brewery_name", action: 'change->breweries#autofill' } } %>
+      </div>
 
-  <div>
-    <%= form.label :active, style: "display: block" %>
-    <%= form.check_box :active %>
-  </div>
+      <div class="mb-2">
+        <%= form.text_field :name, class:'form-control', placeholder:"Name", data: { "breweries-target": "name" }%>
+      </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+      <div class="mb-2">
+        <%= form.number_field :year, class:'form-control', placeholder:"Year", data: { "breweries-target": "year" }%>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label :active, style: "display: block" %>
+        <%= form.check_box :active, class:"form-check-input", data: { "breweries-target": "active" } %>
+      </div>
+
+      <div>
+        <%= form.submit "New Brewery", class:"btn btn-primary" %>
+        <button type="button" data-action="click->breweries#clear" class="btn btn-secondary">Clear</button>
+      </div>
+    </div>
 <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_092928) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_091406) do
   create_table "beerclubs", force: :cascade do |t|
     t.string "name"
     t.integer "founded"
@@ -39,6 +39,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_092928) do
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "beerclub_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

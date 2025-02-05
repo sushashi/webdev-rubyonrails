@@ -6,13 +6,26 @@ class StylesController < ApplicationController
     raise "You must be an administrator" unless current_user.admin?
   end
 
+  def about
+    render partial: 'about'
+  end
+
   # GET /styles or /styles.json
   def index
     @styles = Style.all
+
+    # if turbo_frame_request?
+    #   render partial: 'about'
+    # else
+    #   @styles = Style.all
+    # end
   end
 
   # GET /styles/1 or /styles/1.json
   def show
+    return unless turbo_frame_request?
+
+    render partial: 'details', locals: { style: @style }
   end
 
   # GET /styles/new

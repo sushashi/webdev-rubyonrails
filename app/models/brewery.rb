@@ -38,4 +38,40 @@ class Brewery < ApplicationRecord
   #     result = self.ratings.sum(:score).to_f / self.ratings.count
   #     result.nan? ? 0:result
   # end
+
+  after_create_commit do
+    if active
+      target_id = "active_brewery_rows"
+      target_count = "active_count"
+    else
+      target_id = "retired_brewery_rows"
+      target_count = "retired_count"
+    end
+    broadcast_update_to "breweries_index", target: target_count, html: Brewery.where(active: target_count == "active_count").count
+    broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: target_id, locals: { current_user: { admin: true } }
+  end
+
+  after_destroy_commit do
+    target_count = if active
+                     "active_count"
+                   else
+                     "retired_count"
+                   end
+    broadcast_update_to "breweries_index", target: target_count, html: Brewery.where(active: target_count == "active_count").count
+    broadcast_remove_to "breweries_index", target: "brewery_#{id}"
+  end
+
+  after_update_commit do
+    broadcast_update_to "breweries_index", target: "active_count", html: Brewery.where(active: true).count
+    broadcast_update_to "breweries_index", target: "retired_count", html: Brewery.where(active: false).count
+
+    broadcast_remove_to "breweries_index", target: "brewery_#{id}"
+
+    target_id = if active
+                  "active_brewery_rows"
+                else
+                  "retired_brewery_rows"
+                end
+    broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: target_id, locals: { current_user: { admin: true } }
+  end
 end

@@ -71,3 +71,7 @@ May take a while to launch, It's on a free plan.
 - Couldn't get `chromedriver` or `selenium` to work.
 - `User01` is the admin with password `passworD*`
 - `db:seed` [here](/bin/render-build.sh).
+
+## Week 8
+- Log in as admin `user_1` `passworD*` to be able to delete breweries.
+- Ex 17: I simply used every possible names even if a company has different names from [Avoin data](https://avoindata.prh.fi/)

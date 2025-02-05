@@ -1,0 +1,12 @@
+<tr id=<%= dom_id(brewery) %>>
+	<td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
+	<td><%= brewery.year %></td>
+	<td><%= brewery.beers.size %></td>
+	<td><%= brewery.average_rating %></td>
+	<% if (current_user && current_user[:admin]) %>
+	<td><%= link_to "Delete", brewery_path(brewery.id), class:'btn btn-danger btn-sm', 
+		data: {'turbo_method': :delete,
+			   'turbo-confirm': "Are you sure you want to remove #{brewery.name} and all beers associated with it?"} %>
+	</td>
+	<% end %>
+</tr>

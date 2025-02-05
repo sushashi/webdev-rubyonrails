@@ -1,8 +1,20 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[show edit update destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show, :list]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list, :active, :retired]
   before_action :ensure_that_admin, only: [:destroy]
-  before_action :empty_cache, only: [:create, :destroy, :update]
+  # before_action :empty_cache, only: [:create, :destroy, :update]
+
+  def active
+    sleep(0.2)
+    # @frame_id = 'active_breweries_frame_tag'
+    render partial: 'brewery_list', locals: { breweries: Brewery.active, status: 'active' }
+  end
+
+  def retired
+    sleep(0.11)
+    # @frame_id = 'retired_breweries_frame_tag'
+    render partial: 'brewery_list', locals: { breweries: Brewery.retired, status: 'retired' }
+  end
 
   def empty_cache
     expire_fragment('brewerieslist')
@@ -19,10 +31,11 @@ class BreweriesController < ApplicationController
 
   # GET /breweries or /breweries.json
   def index
-    return if request.format.html? && fragment_exist?('brewerieslist')
-
-    @breweries = Brewery.includes(:beers, :ratings).all
-    @active_breweries = Brewery.includes(:beers, :ratings).active
+    # return if request.format.html? && fragment_exist?('brewerieslist')
+    @nb_active = Brewery.active.count
+    @nb_retired = Brewery.retired.count
+    # @breweries = Brewery.includes(:beers, :ratings).all
+    # @active_breweries = Brewery.includes(:beers, :ratings).active
     @retired_breweries = Brewery.includes(:beers, :ratings).retired
     render :index
   end
@@ -34,6 +47,7 @@ class BreweriesController < ApplicationController
   # GET /breweries/new
   def new
     @brewery = Brewery.new
+    @breweries_name = CompaniesApi.getcompanies
   end
 
   # GET /breweries/1/edit
@@ -46,6 +60,10 @@ class BreweriesController < ApplicationController
 
     respond_to do |format|
       if @brewery.save
+        format.turbo_stream {
+          status = @brewery.active? ? "active" : "retired"
+          render turbo_stream: turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery })
+        }
         format.html { redirect_to @brewery, notice: "Brewery was successfully created." }
         format.json { render :show, status: :created, location: @brewery }
       else
@@ -72,10 +90,10 @@ class BreweriesController < ApplicationController
   def destroy
     @brewery.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to breweries_path, status: :see_other, notice: "Brewery was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to breweries_path, status: :see_other, notice: "Brewery was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   def toggle_activity

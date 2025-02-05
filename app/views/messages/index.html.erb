@@ -1,0 +1,24 @@
+<h1 class="mt-3">Messages</h1>
+
+<% if current_user %>
+	<%= form_with url: messages_path, method: :post do |form| %>
+		<div class="col-sm-8">
+			<div class="input-group">
+				<%= form.text_field :content, class:"form-control", placeholder:"Enter your message..." %>
+				<div class="input-group-append ms-2">
+					<%= form.submit "Send" , class:"btn btn-primary" %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% else %>
+	<p>Sign in to post messages</p>
+<% end %>
+
+<%= turbo_stream_from "messages" %>
+
+<div class="mt-3" id="messages_list">
+			<% @messages.each do |message| %>
+				<%= render "message_row", message: message %>
+			<% end %>
+</div>

@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  resources :styles
+  resources :styles do
+    get 'about', on: :collection
+  end
   resources :memberships
   resources :beerclubs
   resources :users do
     post 'toggle_account_status', on: :member
+    get 'recommendation', on: :member
   end
   resources :beers
+
+  get 'breweries/active', to: 'breweries#active'
+  get 'breweries/retired', to: 'breweries#retired'
+
   resources :breweries do
     post 'toggle_activity', on: :member
   end
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -31,7 +39,8 @@ Rails.application.routes.draw do
   # get 'ratings/new', to: 'ratings#new'
   # post 'ratings', to: 'ratings#create'
 
-  resources :ratings, only: [:index, :new, :create, :destroy]
+  resources :ratings, only: [:index, :new, :create, :show]
+  delete 'ratings', to: 'ratings#destroy'
 
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
@@ -49,4 +58,9 @@ Rails.application.routes.draw do
 
   get 'beerlist', to: 'beers#list'
   get 'brewerylist', to: 'breweries#list'
+
+  get 'messages', to: 'messages#index'
+  post 'messages', to: 'messages#create'
+
+  get 'calculator', to: 'misc#calculator'
 end

@@ -68,6 +68,15 @@ class UsersController < ApplicationController
     redirect_to user, notice: "User account is #{new_status}"
   end
 
+  def recommendation
+    # simulate a delay in calculating the recommendation
+    sleep(2)
+    ids = Beer.pluck(:id)
+    # random pick
+    random_beer = Beer.find(ids.sample)
+    render partial: 'recommendation', locals: { beer: random_beer }
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

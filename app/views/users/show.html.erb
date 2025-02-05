@@ -25,6 +25,10 @@
     favorite style: <%= @user.favorite_style&.name %><br>
     favorite brewery: <%= @user.favorite_brewery&.name %>
   </p>
+  
+  <%= turbo_frame_tag "beer_recommendation_tag", src: recommendation_user_path do %>
+    calculating the recommendation ...
+  <% end %>
 
   <h3> member of </h3>
   <ul>
@@ -36,16 +40,10 @@
   </ul>
   
   <h3>ratings</h3>
-  <ul id="list-ratings">
-    <% @user.ratings.each do |r| %>
-      <li>
-        <%= r.beer.name %>, <%= r.score %>
-        <% if @user == current_user %>
-          | <%= link_to 'Delete', rating_path(r), class:'btn btn-danger btn-sm', data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <%= render partial: 'ratings' %>
+
+  <%= turbo_frame_tag "rating_details" do %>
+  <% end %>
 </div>
 
 <div>

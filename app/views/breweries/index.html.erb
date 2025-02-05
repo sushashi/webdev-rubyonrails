@@ -2,48 +2,28 @@
 
 <% content_for :title, "Breweries" %>
 
+<%= turbo_stream_from "breweries_index" %>
+
 <h1>Breweries</h1>
 
-<% cache 'brewerieslist', skip_digest: true do %>
-
-  <p><b>Number of active breweries: <%= @active_breweries.count %></b></p>
+  <p><b>Number of active breweries: <span id="active_count"><%= @nb_active %></span></b></p>
   <div id="active_breweries">
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Founded</th>
-          <th>Beers</th>
-          <th>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @active_breweries.each do |brewery| %>
-          <tr>
-            <td><%= link_to brewery.name, brewery %></td>
-            <td><%= brewery.year %></td>
-            <td><%= brewery.beers.size %></td>
-            <td><%= brewery.average_rating %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-
-  <p><b>Number of retired breweries: <%= @retired_breweries.count %></b></p>
-  <div id="retired_breweries">
-    <% @retired_breweries.each do |brewery| %>
-      <div id="<%= dom_id brewery %>">
-          <strong><%= link_to brewery.name, brewery %></strong>
-          <ul>
-            <li>
-              Year: <%= brewery.year %>
-            </li>
-          </ul>
-      </div>
+    <%= turbo_frame_tag "active", src: breweries_active_path do %>
+      Retrieving active breweries ...
+      <br>
     <% end %>
   </div>
 
-<% end %>
+  <p><b>Number of retired breweries: <span id="retired_count"><%= @nb_retired %></span></b></p>
+  <div id="retired_breweries">
+    <%= turbo_frame_tag "retired", src: breweries_retired_path do %>
+      Retrieving retired breweries ...
+      <br>
+    <% end %>
+  </div>
 
-<%= link_to "New brewery", new_brewery_path, class:'btn btn-primary' if current_user %>
+<% if current_user %>
+  <%= turbo_frame_tag "new_brewery", src: new_brewery_path do%>
+    Loading Finnish breweries list from Avoin data...
+  <% end %>
+<% end %>

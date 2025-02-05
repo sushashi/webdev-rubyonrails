@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :beerclubs, through: :memberships
 
+  has_many :messages, dependent: :destroy
+
   def self.most_active_users(number)
     User.all.sort_by{ |u| - u.ratings.count }.first(number)
   end
