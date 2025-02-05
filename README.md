@@ -73,5 +73,16 @@ May take a while to launch, It's on a free plan.
 - `db:seed` [here](/bin/render-build.sh).
 
 ## Week 8
-- Log in as admin `user_1` `passworD*` to be able to delete breweries.
+- Log in as admin `User01` `passworD*` to be able to delete breweries.
 - Ex 17: I simply used every possible names even if a company has different names from [Avoin data](https://avoindata.prh.fi/)
+- In order to have a working **Action Cable WebSocket** on **render.com** in production environment, we have to install and set up **Redis**:
+  1. Add `gem "redis"` in [gemfile](/Gemfile).
+  2. Run `bundle install`.
+  3. Add the following code snippet in [config/cable.yml](/config/cable.yml).
+      ```
+      production:
+        adapter: redis
+        url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379/0") %>
+      ```
+  4. Start a new Redis service on render and copy the internal URL of the service.
+  5. Add a new environment variable, `REDIS_URL`, in the deployed app on render.com
